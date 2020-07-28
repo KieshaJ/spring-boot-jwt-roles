@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "sessions.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for sessions.jwtSecret."
+    },
+    {
+      "name": "sessions.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Description for sessions.jwtExpirationMs."
+    }
+  ] }
