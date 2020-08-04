@@ -1,1 +1,1 @@
-# spring-boot-user-sessions
+# spring-boot-jwt-role-based-api
