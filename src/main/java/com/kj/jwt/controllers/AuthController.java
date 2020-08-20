@@ -8,7 +8,10 @@ import com.kj.jwt.utils.payloads.requests.RegisterRequest;
 import com.kj.jwt.utils.payloads.responses.MessageAndBodyResponse;
 import com.kj.jwt.utils.payloads.responses.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,26 +28,31 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<MessageResponse> login (@Valid @RequestBody LoginRequest loginRequest) {
-        TokenUserDetails tokenUserDetails = authService.login(loginRequest);
+    public ResponseEntity<MessageResponse> login (@RequestBody LoginRequest loginRequest) {
+        try {
+            TokenUserDetails tokenUserDetails = authService.login(loginRequest);
 
-        return ResponseEntity.ok(
-                new MessageAndBodyResponse(
-                        Messages.LOGIN_SUCCESS,
-                        tokenUserDetails
-                )
-        );
+            return ResponseEntity.ok(
+                    new MessageAndBodyResponse(
+                            Messages.LOGIN_SUCCESS,
+                            tokenUserDetails
+                    )
+            );
+        }
+        catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(e.getMessage()));
+        }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<MessageResponse> register (@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<MessageResponse> register (@RequestBody RegisterRequest registerRequest) {
         try {
             authService.register(registerRequest);
             return ResponseEntity.ok(new MessageResponse(Messages.REGISTER_SUCCESS));
         }
         catch(Exception e) {
             return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse(e.getMessage()));
         }
     }

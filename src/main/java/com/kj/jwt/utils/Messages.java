@@ -22,4 +22,6 @@ public class Messages {
     public static final String USER_CONTENT = "User Content.";
     public static final String MOD_CONTENT = "Moderator Content.";
     public static final String ADMIN_CONTENT = "Administrator Content.";
+
+    public static final String REQUIRED_FIELDS_NOT_SET = "Required fields not set!";
 }

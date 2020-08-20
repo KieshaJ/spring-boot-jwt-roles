@@ -5,6 +5,6 @@ import com.kj.jwt.utils.payloads.requests.LoginRequest;
 import com.kj.jwt.utils.payloads.requests.RegisterRequest;
 
 public interface AuthService {
-    TokenUserDetails login(LoginRequest request);
+    TokenUserDetails login(LoginRequest request) throws Exception;
     void register(RegisterRequest request) throws Exception;
 }
